@@ -1,8 +1,8 @@
-## Create a repository checklist
+# Concurrent programming
 
-- [ ] the task provides required feedback and has been submitted (needs grading)
-- [ ] the ability to clone the repository to the teacher's computer
-- [ ] there is README.md formatted as expected
-- [ ] `README.md` contains required information
-- [ ] build succeeded
-- [ ] all UTs are green
+## Working Group
+
+| Name Surname (initials) | GUID                                     |
+| ----------------------- | ---------------------------------------- |
+| KE                      | `{FD9D086C-532F-4AAC-BB99-69D7798837D8}` |
+| KL                      | `{44FBFCF5-4430-4964-878D-1867DC679E0D}` |
