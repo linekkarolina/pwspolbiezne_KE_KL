@@ -16,6 +16,7 @@ namespace Etap_0_Testy
             Assert.AreEqual(4.0f, avg);
         }
 
+        [TestMethod]
         public void MaxTest()
         {
             BasicMath basicMath = new BasicMath();
