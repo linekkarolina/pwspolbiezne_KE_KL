@@ -15,5 +15,13 @@ namespace Etap_0_Testy
             float avg = basicMath.Average(testList);
             Assert.AreEqual(4.0f, avg);
         }
+
+        public void MaxTest()
+        {
+            BasicMath basicMath = new BasicMath();
+            List<float> testList = new List<float>() { 2.0f, 5.5f, 1.75f, 6.25f, 4.5f };
+            float max = basicMath.Max(testList);
+            Assert.AreEqual(6.25f, max);
+        }
     }
 }

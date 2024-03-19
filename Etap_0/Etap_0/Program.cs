@@ -23,5 +23,20 @@ namespace Etap_0
 
             return sum / numbers.Count;
         }
+
+        public float Max(List<float> numbers)
+        {
+            float max = float.MinValue;
+            {
+                foreach (float number in numbers) 
+                {
+                    if (number > max)
+                    {
+                        max = number;
+                    }
+                }
+            }
+            return max;
+        }
     }
 }
