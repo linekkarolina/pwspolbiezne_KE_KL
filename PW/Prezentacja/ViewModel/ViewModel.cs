@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using PW.Model;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-namespace PW.ViewModel
+namespace ViewModel
 {
-    public class ViewModel
+    public class ViewModel : INotifyPropertyChanged
     {
-        private ModelAbstractApi ModelLayer;
-        public List<Ball> Balls { get; } = new List<Ball>();
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public ViewModel()
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            ModelLayer = ModelAbstractApi.CreateApi();
-            ModelLayer.Start();
-            foreach (var ball in ModelLayer.Balls)
-            {
-                Balls.Add(new Ball(ball.Top, ball.Left));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
