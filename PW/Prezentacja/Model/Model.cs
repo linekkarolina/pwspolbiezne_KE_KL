@@ -1,17 +1,20 @@
 ﻿using System;
-using PW.Logika;
+using PW.Logic;
+using System.Collections.ObjectModel;
 
 namespace PW.Model
 {
     public class Model : ModelAbstractApi
     {
+        private LogicAbstractApi LogicLayer;
+        public ObservableCollection<IBall> Balls { get; } = new ObservableCollection<IBall>();
+        
         public override void Start()
         {
-            Random random = new Random();
-            Ball newBall = new Ball(random.Next(100, 400 - 100), random.Next(100, 400 - 100)) { Diameter = 20 };
-            Balls.Add(newBall);
+            LogicLayer = LogicAbstractApi.CreateApi();
+            LogicLayer.Subscribe<IBall>(x => Balls.Add(x));
+            LogicLayer.Start();
+            LogicLayer.CreateBalls();
         }
     }
-
-
 }

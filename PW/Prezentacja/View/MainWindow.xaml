@@ -10,7 +10,7 @@
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Balls}">
+        <ItemsControl ItemsSource="{Binding ModelLayer.Balls}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Background="Beige" Width="500" Height="500"/>
