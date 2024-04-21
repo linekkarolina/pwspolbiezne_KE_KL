@@ -10,6 +10,18 @@
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
+		<!-- Polecenie wprowadzania ilości kul -->
+		<StackPanel Orientation="Horizontal" Margin="10">
+			<TextBlock Text="Liczba kul:" VerticalAlignment="Center"/>
+			<TextBox x:Name="txtNumberOfBalls" Width="50" Margin="5"/>
+		</StackPanel>
+
+		<!-- Pole wprowadzania prędkości kul -->
+		<StackPanel Orientation="Horizontal" Margin="10">
+			<TextBlock Text="Prędkość kul:" VerticalAlignment="Center"/>
+			<TextBox x:Name="txtBallSpeed" Width="50" Margin="5"/>
+		</StackPanel>
+		
         <ItemsControl ItemsSource="{Binding ModelLayer.Balls}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
