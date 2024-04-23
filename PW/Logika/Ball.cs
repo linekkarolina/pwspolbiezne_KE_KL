@@ -6,14 +6,14 @@ using System.Threading;
 
 namespace PW.Logic
 {
-    internal class Ball : IBall
+    public class Ball : IBall
     {
         private double TopBackingField;
         private double LeftBackingField;
         private Timer MoveTimer;
         private Random Random = new Random();
-        private Vector2 Velocity;
-        private float Speed;
+        public Vector2 Velocity;
+        public float Speed;
 
         public Ball(double top, double left)
         {
@@ -27,7 +27,7 @@ namespace PW.Logic
         public double Top
         {
             get { return TopBackingField; }
-            private set
+            set
             {
                 if (TopBackingField == value)
                     return;
@@ -39,7 +39,7 @@ namespace PW.Logic
         public double Left
         {
             get { return LeftBackingField; }
-            private set
+            set
             {
                 if (LeftBackingField == value)
                     return;
@@ -62,13 +62,8 @@ namespace PW.Logic
             if (state != null)
                 throw new ArgumentOutOfRangeException(nameof(state));
 
-            Top += Velocity.Y * Speed;
-            if (Top < 0 || Top > 500 - Diameter)
-                Velocity.Y *= -1;
-
-            Left += Velocity.X * Speed;
-            if (Left < 0 || Left > 500 - Diameter)
-                Velocity.X *= -1;
+            Ball thisBall = this;
+            Logic.MoveBall(ref thisBall);
         }
     }
 }

@@ -31,6 +31,17 @@ namespace PW.Logic
             }
         }
 
+        public static void MoveBall(ref Ball ball)
+        {
+            ball.Top += ball.Velocity.Y * ball.Speed;
+            if (ball.Top < 0 || ball.Top > 500 - ball.Diameter)
+                ball.Velocity.Y *= -1;
+
+            ball.Left += ball.Velocity.X * ball.Speed;
+            if (ball.Left < 0 || ball.Left > 500 - ball.Diameter)
+                ball.Velocity.X *= -1;
+        }
+
         public override IDisposable Subscribe(IObserver<IBall> observer)
         {
             return eventObservable.Subscribe(x => observer.OnNext(x.EventArgs.Ball), ex => observer.OnError(ex), () => observer.OnCompleted());

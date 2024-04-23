@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dane", "Dane\Dane.csproj", "{8631B8EA-450B-424C-8E6E-D61314B627CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dane", "Dane\Dane.csproj", "{8631B8EA-450B-424C-8E6E-D61314B627CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logika", "Logika\Logika.csproj", "{4DFCF20A-73A8-4EEE-84A0-E585B0D6F722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logika", "Logika\Logika.csproj", "{4DFCF20A-73A8-4EEE-84A0-E585B0D6F722}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Prezentacja\Model\Model.csproj", "{821097C2-5674-4C2F-A71D-AFD32101031C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Prezentacja\Model\Model.csproj", "{821097C2-5674-4C2F-A71D-AFD32101031C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "Prezentacja\ViewModel\ViewModel.csproj", "{177F7FE4-F0D7-40AB-AD18-07F9583A4886}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "Prezentacja\ViewModel\ViewModel.csproj", "{177F7FE4-F0D7-40AB-AD18-07F9583A4886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "Prezentacja\View\View.csproj", "{BC916C07-9E19-487F-84D4-010C281C0156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "Prezentacja\View\View.csproj", "{BC916C07-9E19-487F-84D4-010C281C0156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTests", "Testy\DataTests\DataTests.csproj", "{026877AC-FF8C-45D4-A815-1E13DC6E8484}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicTests", "Testy\LogicTests\LogicTests.csproj", "{ACC18913-7568-4504-A07B-9576CA95EC83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{BC916C07-9E19-487F-84D4-010C281C0156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC916C07-9E19-487F-84D4-010C281C0156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC916C07-9E19-487F-84D4-010C281C0156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{026877AC-FF8C-45D4-A815-1E13DC6E8484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{026877AC-FF8C-45D4-A815-1E13DC6E8484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{026877AC-FF8C-45D4-A815-1E13DC6E8484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{026877AC-FF8C-45D4-A815-1E13DC6E8484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC18913-7568-4504-A07B-9576CA95EC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC18913-7568-4504-A07B-9576CA95EC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC18913-7568-4504-A07B-9576CA95EC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC18913-7568-4504-A07B-9576CA95EC83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
