@@ -8,13 +8,18 @@ namespace PW.Model
     {
         private LogicAbstractApi LogicLayer;
         public ObservableCollection<IBall> Balls { get; } = new ObservableCollection<IBall>();
-        
+
         public override void Start()
         {
             LogicLayer = LogicAbstractApi.CreateApi();
             LogicLayer.Subscribe<IBall>(x => Balls.Add(x));
             LogicLayer.Start();
-            LogicLayer.CreateBalls();
+        }
+
+        public override void CreateBalls(int amount)
+        {
+            Balls.Clear();
+            LogicLayer.CreateBalls(amount);
         }
     }
 }

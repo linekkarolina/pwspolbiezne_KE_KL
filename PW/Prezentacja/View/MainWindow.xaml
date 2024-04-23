@@ -11,15 +11,16 @@
     </Window.DataContext>
     <Grid>
 		<!-- Polecenie wprowadzania ilości kul -->
-		<StackPanel Orientation="Horizontal" Margin="10">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25, 10">
 			<TextBlock Text="Liczba kul:" VerticalAlignment="Center"/>
-			<TextBox x:Name="txtNumberOfBalls" Width="50" Margin="5"/>
+            <TextBox x:Name="txtNumberOfBalls" Text="1" Width="50" Height="25" Margin="5"/>
+            <Button x:Name="btnUpdate" Width="100" Height="20" HorizontalAlignment="Center" Grid.Row="1" Content="Zmień liczbę kul" Command="{Binding Path=UpdateBallsCommand}" CommandParameter="{Binding ElementName=txtNumberOfBalls, Path=Text}"/>
 		</StackPanel>
 
-		<!-- Pole wprowadzania prędkości kul -->
-		<StackPanel Orientation="Horizontal" Margin="10">
+        <!-- Pole wprowadzania prędkości kul -->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10, 50">
 			<TextBlock Text="Prędkość kul:" VerticalAlignment="Center"/>
-			<TextBox x:Name="txtBallSpeed" Width="50" Margin="5"/>
+			<TextBox x:Name="txtBallSpeed" Width="50" Height="25" Margin="5"/>
 		</StackPanel>
 		
         <ItemsControl ItemsSource="{Binding ModelLayer.Balls}">

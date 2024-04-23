@@ -11,5 +11,7 @@ namespace PW.Model
         }
 
         public abstract void Start();
+
+        public abstract void CreateBalls(int amount);
     }
 }

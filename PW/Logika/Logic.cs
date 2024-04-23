@@ -21,11 +21,14 @@ namespace PW.Logic
             DataLayer = DataAbstractApi.CreateApi();
         }
 
-        public override void CreateBalls()
+        public override void CreateBalls(int amount)
         {
             Random random = new Random();
-            Ball newBall = new Ball(random.Next(100, 500 - 100), random.Next(100, 500 - 100)) { Diameter = 20 };
-            BallChanged?.Invoke(this, new BallChangedEventArgs() { Ball = newBall });
+            for (int i = 0; i < amount; i++)
+            {
+                Ball newBall = new Ball(random.Next(100, 500 - 100), random.Next(100, 500 - 100)) { Diameter = 20 };
+                BallChanged?.Invoke(this, new BallChangedEventArgs() { Ball = newBall });
+            }
         }
 
         public override IDisposable Subscribe(IObserver<IBall> observer)

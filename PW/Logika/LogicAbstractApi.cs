@@ -24,7 +24,7 @@ namespace PW.Logic
         }
 
         public abstract void Start();
-        public abstract void CreateBalls();
+        public abstract void CreateBalls(int amount);
         public abstract IDisposable Subscribe(IObserver<IBall> observer);
     }
 }
