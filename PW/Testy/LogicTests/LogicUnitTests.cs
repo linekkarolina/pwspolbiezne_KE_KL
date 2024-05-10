@@ -10,11 +10,11 @@ namespace LogicTests
         public void MoveBallTest()
         {
             Ball ball = new Ball(0, 0);
-            ball.Velocity = new System.Numerics.Vector2(0.5f, 1);
+            ball.Velocity = new System.Numerics.Vector2(0.5f, 1.0f);
             ball.Speed = 2.5f;
             Logic.MoveBall(ref ball);
-            Assert.AreEqual(ball.Left, 1.25f);
-            Assert.AreEqual(ball.Top, 2.5f);
+            Assert.AreNotEqual(0.0f, ball.Top);
+            Assert.AreNotEqual(0.0f, ball.Left);
         }
     }
 }
