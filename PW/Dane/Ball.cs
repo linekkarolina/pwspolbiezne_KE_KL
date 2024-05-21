@@ -1,29 +1,31 @@
-﻿using System;
+﻿using PW.Data;
+using System;
 using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace PW.Logic
+namespace PW.Data
 {
     public class Ball : IBall
     {
-        private double TopBackingField;
-        private double LeftBackingField;
+        private float TopBackingField;
+        private float LeftBackingField;
         private Random Random = new Random();
         public Vector2 Velocity;
         public float Speed;
 
-        public Ball(double top, double left)
+        public Ball(float top, float left, float diameter)
         {
             TopBackingField = top;
             LeftBackingField = left;
+            Diameter = diameter;
             Task.Run(() => Move());
             Velocity = new Vector2(((float)Random.NextDouble() - 0.5f) * 2, ((float)Random.NextDouble() - 0.5f) * 2);
             Speed = (float)Random.NextDouble() * 5.0f + 1;
         }
 
-        public double Top
+        public float Top
         {
             get { return TopBackingField; }
             set
@@ -35,7 +37,7 @@ namespace PW.Logic
             }
         }
 
-        public double Left
+        public float Left
         {
             get { return LeftBackingField; }
             set
@@ -47,7 +49,7 @@ namespace PW.Logic
             }
         }
 
-        public double Diameter { get; internal set; }
+        public float Diameter { get; internal set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -60,8 +62,14 @@ namespace PW.Logic
         {
             while (true)
             {
-                Ball thisBall = this;
-                Logic.MoveBall(ref thisBall);
+                Top += Velocity.Y * Speed;
+                if (Top < 0 || Top > 500 - Diameter)
+                    Velocity.Y *= -1;
+
+                Left += Velocity.X * Speed;
+                if (Left < 0 || Left > 500 - Diameter)
+                    Velocity.X *= -1;
+
                 await Task.Delay(25);
             }
         }

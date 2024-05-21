@@ -1,6 +1,7 @@
 ﻿using System;
 using PW.Logic;
 using System.Collections.ObjectModel;
+using PW.Data;
 
 namespace PW.Model
 {

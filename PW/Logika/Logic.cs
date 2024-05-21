@@ -2,6 +2,8 @@
 using PW.Data;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Numerics;
+using System.Threading.Tasks;
 
 namespace PW.Logic
 {
@@ -26,20 +28,39 @@ namespace PW.Logic
             Random random = new Random();
             for (int i = 0; i < amount; i++)
             {
-                Ball newBall = new Ball(random.Next(100, 500 - 100), random.Next(100, 500 - 100)) { Diameter = 20 };
+                Ball newBall = new Ball(random.Next(100, 500 - 100), random.Next(100, 500 - 100), 20);
                 BallChanged?.Invoke(this, new BallChangedEventArgs() { Ball = newBall });
+                DataLayer.balls.Add(newBall);
+            }
+            Task.Run(() => CheckCollisions());
+        }
+
+        public async Task CheckCollisions()
+        {
+            while (true)
+            {
+                for (int i = 0; i < DataLayer.balls.Count; ++i)
+                {
+                    for (int j = i + 1; j < DataLayer.balls.Count; ++j)
+                    {
+                        Ball ball1 = DataLayer.balls[i];
+                        Ball ball2 = DataLayer.balls[j];
+
+                        Vector2 ball1Position = new Vector2(ball1.Left, ball1.Top);
+                        Vector2 ball2Position = new Vector2(ball2.Left, ball2.Top);
+
+                        if (ball1.Diameter / 2 + ball2.Diameter / 2  >=  Vector2.Distance(ball1Position, ball2Position))
+                            HandleCollision(ref ball1, ref ball2);
+                    }
+                }
+
+                await Task.Delay(25);
             }
         }
 
-        public static void MoveBall(ref Ball ball)
+        public override void HandleCollision(ref Ball ball1, ref Ball ball2)
         {
-            ball.Top += ball.Velocity.Y * ball.Speed;
-            if (ball.Top < 0 || ball.Top > 500 - ball.Diameter)
-                ball.Velocity.Y *= -1;
 
-            ball.Left += ball.Velocity.X * ball.Speed;
-            if (ball.Left < 0 || ball.Left > 500 - ball.Diameter)
-                ball.Velocity.X *= -1;
         }
 
         public override IDisposable Subscribe(IObserver<IBall> observer)
