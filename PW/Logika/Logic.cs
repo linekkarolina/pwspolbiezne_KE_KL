@@ -28,7 +28,7 @@ namespace PW.Logic
             Random random = new Random();
             for (int i = 0; i < amount; i++)
             {
-                Ball newBall = new Ball(random.Next(100, 500 - 100), random.Next(100, 500 - 100), 20);
+                Ball newBall = new Ball(random.Next(100, 500 - 100), random.Next(100, 500 - 100), random.Next(15, 25));
                 BallChanged?.Invoke(this, new BallChangedEventArgs() { Ball = newBall });
                 DataLayer.balls.Add(newBall);
             }
