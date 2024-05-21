@@ -14,6 +14,7 @@ namespace PW.Data
         private Random Random = new Random();
         public Vector2 Velocity;
         public float Speed;
+        public float Mass;
 
         public Ball(float top, float left, float diameter)
         {
@@ -23,6 +24,7 @@ namespace PW.Data
             Task.Run(() => Move());
             Velocity = new Vector2(((float)Random.NextDouble() - 0.5f) * 2, ((float)Random.NextDouble() - 0.5f) * 2);
             Speed = (float)Random.NextDouble() * 5.0f + 1;
+            Mass = Diameter * Diameter * Diameter;
         }
 
         public float Top
@@ -63,12 +65,28 @@ namespace PW.Data
             while (true)
             {
                 Top += Velocity.Y * Speed;
-                if (Top < 0 || Top > 500 - Diameter)
+                if (Top < 0)
+                {
+                    Top = 0;
                     Velocity.Y *= -1;
+                }
+                else if (Top > 500 - Diameter)
+                {
+                    Top = 500 - Diameter;
+                    Velocity.Y *= -1;
+                }
 
                 Left += Velocity.X * Speed;
-                if (Left < 0 || Left > 500 - Diameter)
+                if (Left < 0)
+                {
+                    Left = 0;
                     Velocity.X *= -1;
+                }
+                else if (Left > 500 - Diameter)
+                {
+                    Left = 500 - Diameter;
+                    Velocity.X *= -1;
+                }
 
                 await Task.Delay(25);
             }
