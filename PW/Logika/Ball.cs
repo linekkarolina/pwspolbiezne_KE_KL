@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace PW.Logic
 {
@@ -10,7 +10,6 @@ namespace PW.Logic
     {
         private double TopBackingField;
         private double LeftBackingField;
-        private Timer MoveTimer;
         private Random Random = new Random();
         public Vector2 Velocity;
         public float Speed;
@@ -19,7 +18,7 @@ namespace PW.Logic
         {
             TopBackingField = top;
             LeftBackingField = left;
-            MoveTimer = new Timer(Move, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(25));
+            Task.Run(() => Move());
             Velocity = new Vector2(((float)Random.NextDouble() - 0.5f) * 2, ((float)Random.NextDouble() - 0.5f) * 2);
             Speed = (float)Random.NextDouble() * 5.0f + 1;
         }
@@ -57,13 +56,14 @@ namespace PW.Logic
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void Move(object state)
+        private async Task Move()
         {
-            if (state != null)
-                throw new ArgumentOutOfRangeException(nameof(state));
-
-            Ball thisBall = this;
-            Logic.MoveBall(ref thisBall);
+            while (true)
+            {
+                Ball thisBall = this;
+                Logic.MoveBall(ref thisBall);
+                await Task.Delay(25);
+            }
         }
     }
 }
