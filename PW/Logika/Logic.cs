@@ -46,10 +46,7 @@ namespace PW.Logic
                         Ball ball1 = DataLayer.balls[i];
                         Ball ball2 = DataLayer.balls[j];
 
-                        Vector2 ball1Position = new Vector2(ball1.Left, ball1.Top);
-                        Vector2 ball2Position = new Vector2(ball2.Left, ball2.Top);
-
-                        if (ball1.Diameter / 2 + ball2.Diameter / 2 >= Vector2.Distance(ball1Position, ball2Position))
+                        if (BallsCollide(ball1, ball2))
                         {
                             HandleCollision(ref ball1, ref ball2);
                         }
@@ -58,6 +55,17 @@ namespace PW.Logic
 
                 await Task.Delay(25);
             }
+        }
+
+        public override bool BallsCollide(Ball ball1, Ball ball2)
+        {
+            Vector2 ball1Position = new Vector2(ball1.Left, ball1.Top);
+            Vector2 ball2Position = new Vector2(ball2.Left, ball2.Top);
+
+            if (ball1.Diameter / 2 + ball2.Diameter / 2 >= Vector2.Distance(ball1Position, ball2Position))
+                return true;
+            else
+                return false;
         }
 
         public override void HandleCollision(ref Ball ball1, ref Ball ball2)

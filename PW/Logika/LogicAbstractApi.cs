@@ -19,6 +19,7 @@ namespace PW.Logic
 
         public abstract void Start();
         public abstract void CreateBalls(int amount);
+        public abstract bool BallsCollide(Ball ball1, Ball ball2);
         public abstract void HandleCollision(ref Ball ball1, ref Ball ball2);
         public abstract IDisposable Subscribe(IObserver<IBall> observer);
     }

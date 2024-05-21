@@ -8,14 +8,12 @@ namespace LogicTests
     public class LogicUnitTests
     {
         [TestMethod]
-        public void MoveBallTest()
+        public void BallsCollisionTest()
         {
-            Ball ball = new Ball(0, 0, 20);
-            ball.Velocity = new System.Numerics.Vector2(0.5f, 1.0f);
-            ball.Speed = 2.5f;
-            Thread.Sleep(30);
-            Assert.AreNotEqual(0.0f, ball.Top);
-            Assert.AreNotEqual(0.0f, ball.Left);
+            Ball ball1 = new Ball(0, 0, 20);
+            Ball ball2 = new Ball(5, 10, 15);
+            LogicAbstractApi logic = LogicAbstractApi.CreateApi();
+            Assert.AreEqual(true, logic.BallsCollide(ball1, ball2));
         }
     }
 }
