@@ -70,23 +70,26 @@ namespace PW.Logic
 
         public override void HandleCollision(ref Ball ball1, ref Ball ball2)
         {
-            Vector2 collisionNormal = Vector2.Normalize(new Vector2(ball2.Left - ball1.Left, ball2.Top - ball1.Top));
-            Vector2 relativeVelocity = ball2.Velocity - ball1.Velocity;
-            float velocityAlongNormal = Vector2.Dot(relativeVelocity, collisionNormal);
+            lock (SyncObject)
+            {
+                Vector2 collisionNormal = Vector2.Normalize(new Vector2(ball2.Left - ball1.Left, ball2.Top - ball1.Top));
+                Vector2 relativeVelocity = ball2.Velocity - ball1.Velocity;
+                float velocityAlongNormal = Vector2.Dot(relativeVelocity, collisionNormal);
 
-            if (velocityAlongNormal > 0)
-                return;
+                if (velocityAlongNormal > 0)
+                    return;
 
-            float restitution = 1.0f;
-            float impulseMagnitude = -(1 + restitution) * velocityAlongNormal;
-            impulseMagnitude /= 1 / ball1.Mass + 1 / ball2.Mass;
+                float restitution = 1.0f;
+                float impulseMagnitude = -(1 + restitution) * velocityAlongNormal;
+                impulseMagnitude /= 1 / ball1.Mass + 1 / ball2.Mass;
 
-            Vector2 impulse = impulseMagnitude * collisionNormal;
+                Vector2 impulse = impulseMagnitude * collisionNormal;
 
-            ball1.Velocity -= impulse / ball1.Mass;
-            ball2.Velocity += impulse / ball2.Mass;
+                ball1.Velocity -= impulse / ball1.Mass;
+                ball2.Velocity += impulse / ball2.Mass;
 
-            CorrectPositions(ref ball1, ref ball2);
+                CorrectPositions(ref ball1, ref ball2);
+            }
         }
 
         private void CorrectPositions(ref Ball ball1, ref Ball ball2)

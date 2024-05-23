@@ -11,6 +11,8 @@ namespace PW.Logic
 
     public abstract class LogicAbstractApi : IObservable<IBall>
     {
+        public static readonly object SyncObject = new object();
+
         public static LogicAbstractApi CreateApi()
         {
             Logic logic = new Logic();
