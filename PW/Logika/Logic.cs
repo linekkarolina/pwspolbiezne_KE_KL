@@ -12,10 +12,12 @@ namespace PW.Logic
         private DataAbstractApi DataLayer;
         public event EventHandler<BallChangedEventArgs> BallChanged;
         private IObservable<EventPattern<BallChangedEventArgs>> eventObservable = null;
+        private readonly BallLogger ballLogger;
 
         public Logic()
         {
             eventObservable = Observable.FromEventPattern<BallChangedEventArgs>(this, "BallChanged");
+            ballLogger = new BallLogger("../../../../../log.txt");
         }
 
         public override void Start()
@@ -25,6 +27,8 @@ namespace PW.Logic
 
         public override void CreateBalls(int amount)
         {
+            DataLayer.balls.Clear();
+            ballLogger.ClearFile();
             Random random = new Random();
             for (int i = 0; i < amount; i++)
             {
@@ -33,6 +37,7 @@ namespace PW.Logic
                 DataLayer.balls.Add(newBall);
             }
             Task.Run(() => CheckCollisions());
+            Task.Run(() => LogBalls());
         }
 
         public async Task CheckCollisions()
@@ -109,6 +114,24 @@ namespace PW.Logic
             ball1.Top += collisionNormal.Y * 0.01f;
             ball2.Left -= collisionNormal.X * 0.01f;
             ball2.Top -= collisionNormal.Y * 0.01f;
+        }
+
+        public async Task LogBalls()
+        {
+            while (true)
+            {
+                for (int i = 0; i < DataLayer.balls.Count; ++i)
+                {
+                    await LogBallBehaviorAsync(DataLayer.balls[i]);
+                }
+
+                await Task.Delay(25);
+            }
+        }
+
+        private async Task LogBallBehaviorAsync(Ball ball)
+        {
+            await ballLogger.LogBallBehaviorAsync(ball);
         }
 
         public override IDisposable Subscribe(IObserver<IBall> observer)
