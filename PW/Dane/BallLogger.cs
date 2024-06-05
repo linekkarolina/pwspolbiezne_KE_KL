@@ -1,10 +1,9 @@
-﻿using PW.Data;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace PW.Logic
+namespace PW.Data
 {
     public class BallLogger
     {
@@ -21,13 +20,14 @@ namespace PW.Logic
             File.WriteAllText(logFilePath, string.Empty);
         }
 
-        public async Task LogBallBehaviorAsync(Ball ball)
+        public async Task LogBallsCollisionAsync(Ball ball1, Ball ball2)
         {
             // Serializuję obiekt kuli do formatu JSON.
-            string serializedBall = JsonConvert.SerializeObject(ball);
+            string serializedBall1 = JsonConvert.SerializeObject(ball1);
+            string serializedBall2 = JsonConvert.SerializeObject(ball2);
 
             // Dodaję znacznik czasu do zalogowanych danych.
-            string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}: {serializedBall}";
+            string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}: {serializedBall1} {serializedBall2}";
 
             // Asynchronicznie zapisuję dane do pliku logów.
             await AppendLogAsync(logEntry);

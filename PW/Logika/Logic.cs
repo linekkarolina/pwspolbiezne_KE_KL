@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PW.Logic
 {
@@ -12,23 +13,29 @@ namespace PW.Logic
         private DataAbstractApi DataLayer;
         public event EventHandler<BallChangedEventArgs> BallChanged;
         private IObservable<EventPattern<BallChangedEventArgs>> eventObservable = null;
-        private readonly BallLogger ballLogger;
+        private BallLogger ballLogger;
+        private int gameNumber = 0;
 
         public Logic()
         {
             eventObservable = Observable.FromEventPattern<BallChangedEventArgs>(this, "BallChanged");
-            ballLogger = new BallLogger("../../../../../log.txt");
         }
 
         public override void Start()
         {
             DataLayer = DataAbstractApi.CreateApi();
+            DirectoryInfo di = new DirectoryInfo("../../../../../logs");
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
         }
 
         public override void CreateBalls(int amount)
         {
+            gameNumber++;
             DataLayer.balls.Clear();
-            ballLogger.ClearFile();
+            ballLogger = new BallLogger("../../../../../logs/log" + gameNumber + ".txt");
             Random random = new Random();
             for (int i = 0; i < amount; i++)
             {
@@ -37,7 +44,6 @@ namespace PW.Logic
                 DataLayer.balls.Add(newBall);
             }
             Task.Run(() => CheckCollisions());
-            Task.Run(() => LogBalls());
         }
 
         public async Task CheckCollisions()
@@ -114,24 +120,8 @@ namespace PW.Logic
             ball1.Top += collisionNormal.Y * 0.01f;
             ball2.Left -= collisionNormal.X * 0.01f;
             ball2.Top -= collisionNormal.Y * 0.01f;
-        }
 
-        public async Task LogBalls()
-        {
-            while (true)
-            {
-                for (int i = 0; i < DataLayer.balls.Count; ++i)
-                {
-                    await LogBallBehaviorAsync(DataLayer.balls[i]);
-                }
-
-                await Task.Delay(25);
-            }
-        }
-
-        private async Task LogBallBehaviorAsync(Ball ball)
-        {
-            await ballLogger.LogBallBehaviorAsync(ball);
+            _ = ballLogger.LogBallsCollisionAsync(ball1, ball2);
         }
 
         public override IDisposable Subscribe(IObserver<IBall> observer)
